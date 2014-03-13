@@ -16,3 +16,8 @@ node.set['java']['oracle']['accept_oracle_download_terms'] = node['hybris']['jav
 
 #install java oracle jdk7
 include_recipe "java::oracle"
+
+package "unzip" do
+  action :install
+end
+

@@ -18,7 +18,7 @@ end
 
 action :stop do
   if new_resource.appServerDirectory
-     execute "start hybris server" do 
+     execute "stop hybris server" do 
         command "#{new_resource.appServerDirectory}/bin/platform/hybrisserver.sh stop"
         action :run
      end

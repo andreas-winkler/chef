@@ -13,7 +13,9 @@ default['hybris']['deleteArtefactAfterExtract'] = true
 
 default['hybris']['version'] = "5.1"
 default['hybris']['buildNumber'] = 1
+default['hybris']['deployNumber'] = 0
 default['hybris']['buildOnTargetSystem'] = true
+
 
 
 default['hybris']['clusterID'] = nil

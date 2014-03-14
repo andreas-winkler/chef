@@ -14,10 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-actions :set
+actions :set, :read
 
-attribute :clusterID, :kind_of => String, :default => nil
-attribute :appServerDirectory, :kind_of => String, :default => nil
+attribute :propertyFile, :kind_of => String, :default => nil
+attribute :propertyValue, :kind_of => String, :default => nil
+attribute :propertyKey, :kind_of => String, :default => nil
 attribute :createBackup, :kind_of => [TrueClass,FalseClass], :default => false
 
 def initialize(*args)

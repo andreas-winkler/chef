@@ -1,4 +1,4 @@
-name "hybris_appserver_role"
+name "hybris_ci_role"
 description "this base role sjould applied to all nodes."
 
 # List of recipes and roles to apply. Requires Chef 0.8, earlier versions use 'recipes()'.

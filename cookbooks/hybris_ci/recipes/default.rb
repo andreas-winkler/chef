@@ -9,10 +9,10 @@
 
 include_recipe "hybris_base"
 
-if ['hybris']['install']['jenkins']
+if node['hybris']['install']['jenkins']
   include_recipe "hybris_ci::jenkins"
 end
 
-if ['hybris']['install']['sonar']
+if node['hybris']['install']['sonar']
   include_recipe "hybris_ci::sonar"
 end

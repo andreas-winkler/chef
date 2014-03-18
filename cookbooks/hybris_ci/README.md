@@ -1,68 +1,31 @@
 hybris_ci Cookbook
 ==================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Cookbook to install a typical hybris CI system
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
-e.g.
-#### packages
-- `toaster` - hybris_ci needs toaster to brown your bagel.
+- `hybris_base` to provide install functionality, like java, unzip, ...
+- `jenkins` - to elaborate the jenkins cookbook with the hybris settings
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
+See `attributes/default.rb` for defaults generated per platform.
 
-e.g.
-#### hybris_ci::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['hybris_ci']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+- `node['hybris']['jenkins']['install_method']` - installation method of jenkins, should not be changed
+- `node['hybris']['jenkins']['httpPort']` - HTTP port of the Jenkins app server
+- `node['hybris']['jenkins']['jvm_options']` - Java options for memory (e.g. Xmx, Xms for heap size) and so on
+
 
 Usage
 -----
 #### hybris_ci::default
 TODO: Write usage instructions for each cookbook.
 
-e.g.
-Just include `hybris_ci` in your node's `run_list`:
+This installs a Jenkins build server.
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[hybris_ci]"
-  ]
-}
-```
-
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: andreas

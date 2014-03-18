@@ -9,11 +9,10 @@
 
 include_recipe "hybris_base"
 
-node.set['jenkins']['master']['install_method'] = node['hybris']['jenkins']['install_method']
-node.set['jenkins']['master']['port'] = node['hybris']['jenkins']['httpPort']
-
-if node['hybris']['jenkins']['jvm_options']
-  node.set['jenkins']['master']['jvm_options'] = node['hybris']['jenkins']['jvm_options']
+if ['hybris']['install']['jenkins']
+  include_recipe "hybris_ci::jenkins"
 end
 
-include_recipe "jenkins::master"
+if ['hybris']['install']['sonar']
+  include_recipe "hybris_ci::sonar"
+end

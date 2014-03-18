@@ -9,3 +9,5 @@ version          '0.1.0'
 
 depends "hybris_base"
 depends "jenkins"
+depends "sonar"
+depends "mysql"

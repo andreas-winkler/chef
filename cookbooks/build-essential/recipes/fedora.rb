@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: build-essential
-# Recipe:: freebsd
+# Recipe:: fedora
 #
-# Copyright 2014, Chef Software, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,20 @@
 # limitations under the License.
 #
 
-potentially_at_compile_time do
-  package 'gmake'
-  package 'autoconf'
-  package 'm4'
+%w{
+  autoconf
+  bison
+  flex
+  gcc
+  gcc-c++
+  kernel-devel
+  make
+  m4
+}.each do |pkg|
+
+  r = package pkg do
+    action(node['build_essential']['compiletime'] ? :nothing : :install)
+  end
+  r.run_action(:install) if node['build_essential']['compiletime']
+
 end

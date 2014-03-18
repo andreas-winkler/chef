@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: build-essential
-# Recipe:: debian
+# Recipe:: suse
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -17,12 +17,20 @@
 # limitations under the License.
 #
 
-potentially_at_compile_time do
-  package 'autoconf'
-  package 'binutils-doc'
-  package 'bison'
-  package 'build-essential'
-  package 'flex'
-  package 'gettext'
-  package 'ncurses-dev'
+%w{
+  autoconf
+  bison
+  flex
+  gcc
+  gcc-c++
+  kernel-default-devel
+  make
+  m4
+}.each do |pkg|
+
+  r = package pkg do
+    action(node['build_essential']['compiletime'] ? :nothing : :install)
+  end
+  r.run_action(:install) if node['build_essential']['compiletime']
+
 end

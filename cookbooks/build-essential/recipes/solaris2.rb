@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: build-essential
-# Recipe:: fedora
+# Recipe:: solaris2
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,26 @@
 # limitations under the License.
 #
 
-potentially_at_compile_time do
-  package 'autoconf'
-  package 'bison'
-  package 'flex'
-  package 'gcc'
-  package 'gcc-c++'
-  package 'gettext'
-  package 'kernel-devel'
-  package 'make'
-  package 'm4'
-  package 'ncurses-devel'
+%w{
+  autoconf
+  automake
+  bison
+  coreutils
+  flex
+  gcc4core
+  gcc4g++
+  gcc4objc
+  gcc3core
+  gcc3g++
+  ggrep
+  gmake
+  gtar
+  pkgconfig
+}.each do |pkg|
+
+  r = pkgutil_package pkg do
+    action(node['build_essential']['compiletime'] ? :nothing : :install)
+  end
+  r.run_action(:install) if node['build_essential']['compiletime']
+
 end

@@ -55,3 +55,7 @@ java_ark "jdk-alt" do
   action :install
   default false
 end
+
+if node['java']['set_default'] and platform_family?('debian')
+  include_recipe 'java::default_java_symlink'
+end

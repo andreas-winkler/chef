@@ -6,3 +6,4 @@ default['hybris']['jenkins']['jvm_options'] = " -Xmx2G"
 default['hybris']['install']['jenkins'] = true
 default['hybris']['install']['sonar'] = true
 
+default['hybris']['mysql']['server_root_password'] = "nimda"

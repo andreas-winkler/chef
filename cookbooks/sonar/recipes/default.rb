@@ -18,36 +18,53 @@
 #
 
 include_recipe "java"
-include_recipe "maven"
 
 package "unzip"
 
 remote_file "/opt/sonar-#{node['sonar']['version']}.zip" do
-  source "http://dist.sonar.codehaus.org/sonar-#{node['sonar']['version']}.zip"
+  source "#{node['sonar']['mirror']}/sonar-#{node['sonar']['version']}.zip"
   mode "0644"
   checksum "#{node['sonar']['checksum']}"
-  not_if {File.exists?("/opt/sonar-#{node['sonar']['version']}.zip")}
+  not_if { ::File.exists?("/opt/sonar-#{node['sonar']['version']}.zip") }
 end
 
 execute "unzip /opt/sonar-#{node['sonar']['version']}.zip -d /opt/" do
-  not_if {File.directory?("/opt/sonar-#{node['sonar']['version']}/")}
+  not_if { ::File.directory?("/opt/sonar-#{node['sonar']['version']}/") }
 end
 
 link "/opt/sonar" do
   to "/opt/sonar-#{node['sonar']['version']}"
 end
 
+
+template "/etc/init.d/sonar" do
+  path "/etc/init.d/sonar"
+  source "sonar-startup.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
 service "sonar" do
-  stop_command "sh /opt/sonar/bin/#{node['sonar']['os_kernel']}/sonar.sh stop"
-  start_command "sh /opt/sonar/bin/#{node['sonar']['os_kernel']}/sonar.sh start"
-  status_command "sh /opt/sonar/bin/#{node['sonar']['os_kernel']}/sonar.sh status"
-  restart_command "sh /opt/sonar/bin/#{node['sonar']['os_kernel']}/sonar.sh restart"
-  action :start
+  supports :status => true, :start => true, :stop => true, :restart => true
+  action [:enable, :start]
 end
 
 template "sonar.properties" do
   path "/opt/sonar/conf/sonar.properties"
   source "sonar.properties.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  variables(
+    :options => node['sonar']['options']
+  )
+  notifies :restart, resources(:service => "sonar")
+end
+
+template "wrapper.conf" do
+  path "/opt/sonar/conf/wrapper.conf"
+  source "wrapper.conf.erb"
   owner "root"
   group "root"
   mode 0644

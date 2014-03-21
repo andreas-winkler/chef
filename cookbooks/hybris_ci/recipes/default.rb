@@ -16,3 +16,6 @@ end
 if node['hybris']['install']['sonar']
   include_recipe "hybris_ci::sonar"
 end
+
+include_recipe "nexus::cli"
+include_recipe "nexus::app"
